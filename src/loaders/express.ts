@@ -30,24 +30,35 @@ export default (app: express.Application) => {
   });
 
   /// error handlers
-  app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    /**
-     * Handle 401 thrown by express-jwt library
-     */
-    if (err.name === 'UnauthorizedError') {
-      return res
-        .status(err.status)
-        .send({ message: err.message })
-        .end();
+  app.use(
+    (
+      err: any,
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      /**
+       * Handle 401 thrown by express-jwt library
+       */
+      if (err.name === 'UnauthorizedError') {
+        return res.status(err.status).send({ message: err.message }).end();
+      }
+      return next(err);
     }
-    return next(err);
-  });
-  app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    res.status(err.status || 500);
-    res.json({
-      errors: {
-        message: err.message,
-      },
-    });
-  });
+  );
+  app.use(
+    (
+      err: any,
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      res.status(err.status || 500);
+      res.json({
+        errors: {
+          message: err.message,
+        },
+      });
+    }
+  );
 };

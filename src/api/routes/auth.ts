@@ -21,15 +21,20 @@ export default (app: express.Router) => {
       }),
     }),
     async (req, res, next) => {
-      Logger.debug('Calling Sign-Up endpoint with body: %o', req.body )
+      Logger.debug('Calling Sign-Up endpoint with body: %o', req.body);
       try {
-        const { user, token } = await AuthService.signUp(req.body.name, req.body.email, req.body.role, req.body.password);
+        const { user, token } = await AuthService.signUp(
+          req.body.name,
+          req.body.email,
+          req.body.role,
+          req.body.password
+        );
         return res.status(201).json({ user, token });
       } catch (e) {
         Logger.error('%o', e);
         return next(e);
       }
-    },
+    }
   );
 
   route.post(
@@ -41,15 +46,15 @@ export default (app: express.Router) => {
       }),
     }),
     async (req, res, next) => {
-      Logger.debug('Calling Sign-In endpoint with body: %o', req.body)
+      Logger.debug('Calling Sign-In endpoint with body: %o', req.body);
       try {
         const { email, password } = req.body;
         const { user, token } = await AuthService.signIn(email, password);
         return res.json({ user, token }).status(200);
       } catch (e) {
-        Logger.error('%o',  e );
+        Logger.error('%o', e);
         return next(e);
       }
-    },
+    }
   );
 };

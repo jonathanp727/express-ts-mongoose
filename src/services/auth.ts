@@ -7,7 +7,12 @@ import logger from '../loaders/logger';
 import UserModel from '../models/user/query';
 import createUser, { User } from '../models/user';
 
-async function signUp(name: string, email: string, role: string, password: string) {
+async function signUp(
+  name: string,
+  email: string,
+  role: string,
+  password: string
+) {
   try {
     const salt = randomBytes(32);
     const hashedPassword = await argon2.hash(password, { salt });
@@ -45,9 +50,8 @@ async function signIn(email: string, password: string) {
     Reflect.deleteProperty(user, 'password');
     Reflect.deleteProperty(user, 'salt');
     return { user, token };
-  } else {
-    throw new Error('Invalid Password');
   }
+  throw new Error('Invalid Password');
 }
 
 function generateToken(user: User) {
@@ -56,11 +60,11 @@ function generateToken(user: User) {
   exp.setDate(today.getDate() + 60);
   return jwt.sign(
     {
-      _id: user._id,           // Used in `isAuth` middleware
+      _id: user._id, // Used in `isAuth` middleware
       name: user.name,
       exp: exp.getTime() / 1000,
     },
-    config.jwtSecret,
+    config.jwtSecret
   );
 }
 
