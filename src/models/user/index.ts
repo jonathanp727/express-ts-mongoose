@@ -17,7 +17,7 @@ const createUser = (
   email: string,
   role: string,
   passwordHash: string,
-  saltHex: string,
+  saltHex: string
 ): User => ({
   name,
   email,
@@ -25,5 +25,5 @@ const createUser = (
   passwordHash,
   saltHex,
 });
-  
+
 export default createUser;

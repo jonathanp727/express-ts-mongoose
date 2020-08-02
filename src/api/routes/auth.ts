@@ -1,13 +1,11 @@
 import express, { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import AuthService from '../../services/auth';
-import middlewares from '../middlewares';
 import Logger from '../../loaders/logger';
 
 const route = Router();
 
-export default (app: express.Router) => {
+export default (app: express.Router): void => {
   app.use('/auth', route);
 
   route.post(
@@ -21,15 +19,14 @@ export default (app: express.Router) => {
       }),
     }),
     async (req, res, next) => {
-      Logger.debug('Calling Sign-Up endpoint with body: %o', req.body )
+      Logger.debug('Calling Sign-Up endpoint with body: %o', req.body);
       try {
-        const { user, token } = await AuthService.signUp(req.body.name, req.body.email, req.body.role, req.body.password);
-        return res.status(201).json({ user, token });
+        return res.status(201).json('user created!');
       } catch (e) {
         Logger.error('%o', e);
         return next(e);
       }
-    },
+    }
   );
 
   route.post(
@@ -41,15 +38,13 @@ export default (app: express.Router) => {
       }),
     }),
     async (req, res, next) => {
-      Logger.debug('Calling Sign-In endpoint with body: %o', req.body)
+      Logger.debug('Calling Sign-In endpoint with body: %o', req.body);
       try {
-        const { email, password } = req.body;
-        const { user, token } = await AuthService.signIn(email, password);
-        return res.json({ user, token }).status(200);
+        return res.json('user signed in!').status(200);
       } catch (e) {
-        Logger.error('%o',  e );
+        Logger.error('%o', e);
         return next(e);
       }
-    },
+    }
   );
 };

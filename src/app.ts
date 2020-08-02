@@ -1,6 +1,6 @@
 import express from 'express';
 
-import config from './config';
+import config from './config/index';
 import initLoaders from './loaders';
 import Logger from './loaders/logger';
 
