@@ -17,6 +17,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     'import/extensions': 'off', // Disable this airbnb rule because it sucks
+    'no-underscore-dangle': 'off', // Conflicts with mongo document id fieldname
   },
   settings: {
     'import/resolver': {

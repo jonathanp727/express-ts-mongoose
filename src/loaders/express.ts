@@ -1,4 +1,4 @@
-import express, { RequestHandler } from 'express';
+import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { errors as celebrateErrorHandler } from 'celebrate';
@@ -7,7 +7,7 @@ import routes from '../api';
 import config from '../config';
 import ResponseError from '../types/ResponseError';
 
-export default (app: express.Application) => {
+export default (app: express.Application): void => {
   // Healthcheck endpoints
   app.get('/status', (req, res) => {
     res.status(200).end();
@@ -32,7 +32,7 @@ export default (app: express.Application) => {
   /// error handlers
   app.use(
     (
-      err: any,
+      err: ResponseError,
       req: express.Request,
       res: express.Response,
       next: express.NextFunction
@@ -46,19 +46,12 @@ export default (app: express.Application) => {
       return next(err);
     }
   );
-  app.use(
-    (
-      err: any,
-      req: express.Request,
-      res: express.Response,
-      next: express.NextFunction
-    ) => {
-      res.status(err.status || 500);
-      res.json({
-        errors: {
-          message: err.message,
-        },
-      });
-    }
-  );
+  app.use((err: ResponseError, req: express.Request, res: express.Response) => {
+    res.status(err.status || 500);
+    res.json({
+      errors: {
+        message: err.message,
+      },
+    });
+  });
 };

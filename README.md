@@ -44,7 +44,8 @@ without any further modification.
     `npm i --save-dev prettier eslint-config-prettier eslint-plugin-prettier`
     Copy `.prettierrc` from this repository
     Copy `.eslintrc.js` from this repository or generate your own with `npx eslint --init`
-    Create a `lint` script in the package.json: `"lint": "eslint '*/**/*.{js,ts}' --quiet --fix"`
+    Copy `.eslintignore` from this repository to prevent linting of build directory
+    Add `"lint": "eslint '*/**/*.{js,ts}' --quiet --fix"` to the package.json scripts
 
     __Note__: If you're creating your own, make sure to specifiy the import resolver, typescript and prettier extensions, and the typescript plugin yourself.
 

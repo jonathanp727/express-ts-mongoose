@@ -1,20 +1,17 @@
-import { ObjectId } from 'mongodb';
-import { getDb, getClient } from '../../loaders/mongo';
+import { ObjectId, InsertOneWriteOpResult } from 'mongodb';
+import { getDb } from '../../loaders/mongo';
 
 import { User } from './index';
 
 const USER = 'user';
 
-const create = (user: User) =>
-  getDb()
-    .collection(USER)
-    .insertOne(user)
-    .then((res) => res.ops[0]);
-const findById = (id: string) =>
+const create = (user: User): Promise<InsertOneWriteOpResult<{ _id: string }>> =>
+  getDb().collection(USER).insertOne(user);
+const findById = (id: string): Promise<User> =>
   getDb()
     .collection(USER)
     .findOne({ _id: new ObjectId(id) });
-const findByEmail = (email: string) =>
+const findByEmail = (email: string): Promise<User> =>
   getDb().collection(USER).findOne({ email });
 
 export default {

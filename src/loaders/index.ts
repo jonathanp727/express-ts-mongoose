@@ -4,7 +4,7 @@ import expressLoader from './express';
 import mongoLoader from './mongo';
 import Logger from './logger';
 
-export default async (app: Express) => {
+export default async (app: Express): Promise<void> => {
   await mongoLoader();
   Logger.info('DB loaded and connected!');
 
