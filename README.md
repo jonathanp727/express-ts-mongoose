@@ -48,14 +48,6 @@ without any further modification.
 
 5. Add eslint and prettier for linting, made easy with [this tutorial](https://www.robertcooper.me/using-eslint-and-prettier-in-a-typescript-project)
 
-<<<<<<< HEAD
-    `npm i --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-import-resolver-typescript`
-    `npm i --save-dev prettier eslint-config-prettier eslint-plugin-prettier`
-    Copy `.prettierrc` from this repository
-    Copy `.eslintrc.js` from this repository or generate your own with `npx eslint --init`
-    Copy `.eslintignore` from this repository to prevent linting of build directory
-    Add `"lint": "eslint '*/**/*.{js,ts}' --quiet --fix"` to the package.json scripts
-=======
     `npm i --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-import-resolver-typescript` 
     
     `npm i --save-dev prettier eslint-config-prettier eslint-plugin-prettier` 
@@ -63,10 +55,11 @@ without any further modification.
     Copy `.prettierrc` from this repository 
     
     Copy `.eslintrc.js` from this repository or generate your own with `npx eslint --init`  
+
+    Copy `.eslintignore` from this repository to prevent linting of the build directory  
     
     Create a `lint` script in the package.json: `"lint": "eslint '*/**/*.{js,ts}' --quiet --fix"` 
     
->>>>>>> 0184258684737689015410ea4da557a7dd0e2f7f
 
     __Note__: If you're creating your own, make sure to specifiy the import resolver, typescript and prettier extensions, and the typescript plugin yourself.
 
